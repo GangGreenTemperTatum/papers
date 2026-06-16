@@ -19,7 +19,7 @@ layout.
 <!-- BEGIN_AUTO_BADGES -->
 <div align="center">
 
-[![Pre-Commit](https://github.com/GangGreenTemperTatum/papers-template/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GangGreenTemperTatum/papers-template/actions/workflows/pre-commit.yaml)
+[![Pre-Commit](https://github.com/GangGreenTemperTatum/papers/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GangGreenTemperTatum/papers/actions/workflows/pre-commit.yaml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 </div>
@@ -118,7 +118,7 @@ citation.
   title        = {Your Paper Title},
   author       = {Your Name},
   year         = {2026},
-  url          = {https://github.com/GangGreenTemperTatum/papers-template}
+  url          = {https://github.com/GangGreenTemperTatum/papers}
 }
 ```
 
