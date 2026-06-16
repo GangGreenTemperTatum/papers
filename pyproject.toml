@@ -1,0 +1,41 @@
+[project]
+name = "papers-template"
+version = "0.0.1"
+description = "Code for the paper 'papers-template'"
+authors = [{ name = "Ads Dawson" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+    "mypy>=1.15.0",
+    "pre-commit>=4.0.0",
+    "ruff>=0.9.10",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+line-length = 100
+extend-exclude = [
+    "*.ipynb", # jupyter notebooks
+]
+
+[tool.ruff.lint]
+ignore = [
+    "E501",   # line too long (we make best effort)
+    "TRY003", # long messages in exception classes
+    "EM",     # Picky message construction for exceptions
+    "C90",    # mccabe complexity
+    "A002",   # shadowing built-in
+    "D",      # docstrings
+]
+[tool.ruff.format]
+
+skip-magic-trailing-comma = false

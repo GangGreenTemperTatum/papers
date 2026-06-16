@@ -1,0 +1,33 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.10
+    hooks:
+      - id: ruff
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: latex-line-consistency
+        name: Check LaTeX files end with a newline
+        entry: scripts/latex_line_consistency.sh
+        language: system
+        pass_filenames: false
+        files: ^paper/.*\.tex$
+
+      - id: latex-label-consistency
+        name: Check LaTeX sections have labels
+        entry: scripts/latex_label_consistency.sh
+        language: system
+        pass_filenames: false
+        files: ^paper/section/.*\.tex$

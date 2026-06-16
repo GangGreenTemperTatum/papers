@@ -1,0 +1,150 @@
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+### Node js ###
+# Node modules
+node_modules/
+package-lock.json
+package.json
+yarn-error.log
+yarn.lock
+npm-debug.log*
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Testing and coverage
+.coverage
+coverage.xml
+.pytest_cache/
+htmlcov/
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+### Data and Research ###
+# Raw data
+data/raw/
+*.csv
+*.tsv
+*.xlsx
+*.xls
+
+# Temporary data
+data/interim/
+data/processed/
+*.tmp
+
+# Model files
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+*.joblib
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Research paper drafts and outputs
+paper/**/*.aux
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.fdb_latexmk
+paper/**/*.fls
+paper/**/*.log
+paper/**/*.out
+paper/**/*.synctex.gz
+
+## Figures and images
+#*.png
+#*.jpg
+#*.jpeg
+#*.gif
+#*.eps
+#*.svg
+paper/svg-inkscape/*
+
+
+# Environment and config
+.env*
+config.ini
+secrets.yaml
+
+# Logs
+logs/
+*.log
+.wandb/
+
+# Cache directories
+.cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local development
+local/
+scratch/
+
+### LaTeX ###
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Bibliography auxiliary files:
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+## Intermediate documents:
+*.dvi
+*.xdv
+*-converted-to.*
+
+## Generated if empty string is given at "Please type another file name for output:"
+.pdf
+
+## Make sure to keep the final PDF
+!paper/main.pdf
+paper/paper.docx
+arxiv_submission/*
+!arxiv_submission/.gitkeep
+arxiv_submission.tar.gz

@@ -1,0 +1,445 @@
+%% --------- DOCUMENT CLASS AND PACKAGES --------- %%
+\documentclass[11pt]{article}
+
+%% --------- BASE PACKAGES --------- %%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\usepackage[a4paper,width=155mm,top=30mm,bottom=25mm,headheight=14pt]{geometry}
+
+%% --------- PACKAGE COMPATIBILITY SETTINGS --------- %%
+\usepackage{siunitx}
+\AtBeginDocument{%
+  \RenewCommandCopy{\qty}{\SI}
+  \RenewCommandCopy{\unit}{\si}
+}
+
+%% --------- BIBLIOGRAPHY SETTINGS --------- %%
+\usepackage[numbers,sort&compress,square]{natbib}
+
+%% --------- FUNCTIONAL PACKAGES --------- %%
+\usepackage[]{todonotes}
+\usepackage[most]{tcolorbox}
+\usepackage{adjustbox}
+\usepackage{algorithm2e}
+
+%% --------- TABLE AND LAYOUT PACKAGES --------- %%
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{cancel}
+\usepackage{epsfig}
+\usepackage{extarrows}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{mathdots}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{svg}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{fontawesome5}
+\usepackage{changepage}
+\usepackage{subcaption}
+\usepackage{caption}
+
+%% --------- CODE LISTINGS CONFIGURATION --------- %%
+\definecolor{codebackground}{rgb}{0.95,0.95,0.95}
+\definecolor{codekeyword}{rgb}{0.13,0.29,0.53}
+\definecolor{codecomment}{rgb}{0.25,0.5,0.35}
+\definecolor{codestring}{rgb}{0.63,0.13,0.094}
+\lstset{
+  backgroundcolor=\color{codebackground},
+  basicstyle=\footnotesize\ttfamily,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{codecomment},
+  keywordstyle=\color{codekeyword}\bfseries,
+  stringstyle=\color{codestring},
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  tabsize=2,
+  rulecolor=\color{black},
+  title=\lstname,
+  escapeinside={\%*}{*)}
+}
+
+%% --------- CUSTOM LANGUAGE DEFINITIONS --------- %%
+\lstdefinelanguage{dockerfile}{
+  keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD, ENV, ARG, WORKDIR, EXPOSE, VOLUME, USER, LABEL, MAINTAINER},
+  sensitive=false,
+  comment=[l]{\#},
+  % Intentionally using straight quotes for listings package
+  morestring=[b]``
+}
+
+%% --------- HEADER/FOOTER CONFIGURATION --------- %%
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\papertitle}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[C]{\thepage}
+
+% First page header
+\AtBeginDocument{\thispagestyle{fancy}}
+
+\makeatletter
+\let\ps@plain\ps@fancy%
+\makeatother
+
+%% --------- TIKZ AND PGFPLOTS SETTINGS --------- %%
+\usetikzlibrary{fadings,patterns,shadows.blur,shapes,patterns.meta,shapes.arrows}
+\usepgfplotslibrary{groupplots,dateplot}
+\pgfplotsset{compat=newest,
+    width=0.9\textwidth,
+    height=0.6\textwidth,
+    every axis/.append style={
+        line width=0.5pt,
+        tick style={line width=0.5pt}
+    }
+}
+
+%% --------- CUSTOM COMMANDS --------- %%
+\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommfont}
+
+%% --------- UNICODE SETUP --------- %%
+\DeclareUnicodeCharacter{2212}{-}
+
+%% --------- HYPERREF CONFIGURATION --------- %%
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+%% --------- DOCUMENT FORMATTING --------- %%
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0pt}
+
+%% --------- ABSTRACT STYLING --------- %%
+\newtcolorbox{graybox}{
+  colback=gray!5,
+  colframe=gray!50,
+  boxrule=0.5pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  before skip=12pt,
+  after skip=12pt
+}
+
+%% Environments for compact abstract
+
+\newenvironment{compactabstract}{%
+    \begin{graybox}%
+    \begin{abstract}%
+    \setlength{\parindent}{0pt}%
+    \setlength{\parskip}{0.75em}%
+}{%
+    \end{abstract}%
+    \end{graybox}%
+}
+
+%% --------- MESSAGE BUBBLES STYLING --------- %%
+\definecolor{userbubble}{RGB}{65,105,225} % Royal Blue
+\definecolor{challengebubble}{RGB}{229,229,234} % iOS gray for challenge
+\definecolor{flagbubble}{RGB}{46,139,87} % Sea Green for flag found
+\definecolor{conversationframe}{RGB}{200,200,200} % Light gray for conversation frame
+\definecolor{metadatacolor}{RGB}{100,100,100} % Dark gray for metadata text
+
+%% --------- CONVERSATION ENVIRONMENTS --------- %%
+% Message group environment
+\newenvironment{messagegroup}[4]{%
+\begin{tcolorbox}[
+  enhanced,
+  breakable=true,
+  break at=4000pt,
+  colback=white,
+  colframe=conversationframe,
+  arc=5pt,
+  boxrule=0.5pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  width=\columnwidth,
+  enlarge left by=0.25em,
+  enlarge right by=0.25em,
+  boxed title style={colback=white},
+  parbox=false,
+  before skip=0pt,
+  after skip=0pt
+]
+\noindent\small\color{metadatacolor}%
+\textbf{#1} \quad
+\textit{Request #2 of #3} \quad
+\textit{Challenge: #4} \quad
+}{%
+\end{tcolorbox}
+\vspace{-2mm}%
+}
+
+%% --------- CONVERSATION ENVIRONMENTS --------- %%
+% Message group environment
+\newenvironment{flaggroup}[4]{%
+\begin{tcolorbox}[
+  enhanced,
+  breakable=true,
+  colback=white,
+  colframe=flagbubble,
+  arc=5pt,
+  boxrule=0.5pt,
+  left=4pt,
+  right=4pt,
+  top=4pt,
+  bottom=4pt,
+  width=\columnwidth,
+  enlarge left by=0.25em,
+  enlarge right by=0.25em,
+  before skip=2pt,
+  after skip=2pt
+]
+\noindent\small\color{metadatacolor}%
+\textbf{#1} \quad
+\textit{Request #2 of #3} \quad
+\textit{Challenge: #4} \quad
+\faIcon{flag}
+
+}{%
+\end{tcolorbox}
+}
+
+%% --------- MESSAGE BUBBLE COMMANDS --------- %%
+\newcommand{\systemprompt}[1]{%
+\begin{flushleft}
+\begin{tcolorbox}[
+  enhanced,
+  colback=gray!10,
+  colframe=gray!30,
+  arc=10pt,
+  boxrule=0pt,
+  width=0.9\columnwidth,
+  fontupper=\color{black}\small,
+  title={\textcolor{black}{\faServer\ System Prompt}},
+  fonttitle=\small\bfseries,
+  attach boxed title to top left={xshift=10pt, yshift=-7pt},
+  boxed title style={colback=gray!10, colframe=gray!30, boxrule=0pt, arc=5pt},
+  after={\vspace{0.1em}}
+]
+#1
+\end{tcolorbox}
+\end{flushleft}
+}
+
+\newcommand{\userprompt}[1]{%
+\begin{flushleft}
+\begin{tcolorbox}[
+  enhanced,
+  colback=challengebubble,
+  colframe=challengebubble,
+  arc=10pt,
+  boxrule=0pt,
+  width=0.9\columnwidth,
+  fontupper=\color{black}\small,
+  title={\textcolor{black}{\faUser\ User Prompt}},
+  fonttitle=\small\bfseries,
+  attach boxed title to top left={xshift=10pt, yshift=-7pt},
+  boxed title style={colback=challengebubble, colframe=challengebubble, boxrule=0pt, arc=5pt},
+  after={\vspace{0.1em}}
+]
+#1
+\end{tcolorbox}
+\end{flushleft}
+}
+
+\newcommand{\challengemessage}[1]{%
+\begin{flushright}
+\begin{tcolorbox}[
+  enhanced,
+  breakable=true,
+  break at=4000pt,
+  colback=userbubble,
+  colframe=userbubble,
+  arc=10pt,
+  boxrule=0pt,
+  width=0.9\columnwidth,
+  fontupper=\color{white}\small,
+  title={\textcolor{white}{\faUser\ Crucible Challenge Response}},
+  fonttitle=\small\bfseries,
+  attach boxed title to top right={xshift=-10pt, yshift=-7pt},
+  boxed title style={colback=userbubble, colframe=userbubble, boxrule=0pt, arc=5pt}
+]
+#1
+\end{tcolorbox}
+\end{flushright}
+}
+
+\newcommand{\usermessage}[1]{%
+\begin{flushleft}
+\begin{tcolorbox}[
+  enhanced,
+  breakable=true,
+  colback=challengebubble,
+  colframe=challengebubble,
+  arc=10pt,
+  boxrule=0pt,
+  width=0.9\columnwidth,
+  fontupper=\color{black}\small,
+  title={\textcolor{black}{\faRobot\ Attack Model}},
+  fonttitle=\small\bfseries,
+  attach boxed title to top left={xshift=10pt, yshift=-7pt},
+  boxed title style={colback=challengebubble, colframe=challengebubble, boxrule=0pt, arc=5pt},
+  after={\vspace{0.1em}}
+]
+#1
+\end{tcolorbox}
+\end{flushleft}
+}
+
+\newcommand{\flagmessage}[1]{%
+\begin{center}
+\begin{tcolorbox}[
+  enhanced,
+  colback=flagbubble,
+  colframe=flagbubble,
+  arc=10pt,
+  boxrule=0pt,
+  width=0.95\columnwidth,
+  fontupper=\color{white}\small,
+  title={\textcolor{white}{\faFlag\ Flag Found}},
+  fonttitle=\small\bfseries,
+  attach boxed title to top center={yshift=-7pt},
+  boxed title style={colback=flagbubble, colframe=flagbubble, boxrule=0pt, arc=5pt},
+  after={\vspace{0.1em}}
+]
+#1
+\end{tcolorbox}
+\end{center}
+}
+
+% Code listings with smaller font
+\newcommand{\smallcode}[1]{
+  \begin{tcolorbox}[
+    colback=gray!5,
+    colframe=gray!40,
+    boxrule=0.5pt,
+    left=4pt,right=4pt,top=4pt,bottom=4pt,
+    width=\columnwidth,
+    fontupper=\footnotesize\ttfamily
+  ]
+  #1
+  \end{tcolorbox}
+}
+
+% Todo note for placeholders
+\newcommand{\placeholder}[1]{\todo[inline,color=yellow!40]{#1}}
+
+% Placeholder figure command
+\newcommand{\placeholderfigure}[2]{
+  \begin{tcolorbox}[
+    colback=gray!10,
+    colframe=gray!50,
+    boxrule=0.5pt,
+    width=#1,
+    height=0.6\linewidth,
+    arc=3mm,
+    auto outer arc
+  ]
+  \centering
+  \textbf{#2}
+  \end{tcolorbox}
+}
+
+% Placeholder for two-column diagram
+\newcommand{\placeholderdiagram}[1]{
+  \begin{tcolorbox}[
+    colback=gray!10,
+    colframe=gray!50,
+    boxrule=0.5pt,
+    width=\textwidth,
+    height=0.3\textheight,
+    arc=3mm,
+    auto outer arc
+  ]
+  \centering
+  \textbf{#1}
+  \end{tcolorbox}
+}
+
+% [Additional commands follow same pattern - kept for brevity]
+
+%% --------- UTILITY COMMANDS --------- %%
+\newcommand{\abstractfooter}[1]{%
+    \vspace{0.75em}\par\noindent%
+    #1\par%
+}
+
+%% --------- GLOBAL DEFINITIONS --------- %%
+\newcommand{\institution}[1]{\textit{#1}}
+\newcommand{\papertitle}{Your Paper Title}
+\newcommand{\tbd}[1]{\textcolor{red}{TBD\@: #1}}
+
+%% --------- BEGIN DOCUMENT --------- %%
+%% --------- DOCUMENT CONTENT --------- %%
+\begin{document}
+\title{\papertitle}
+
+
+%% --------- AUTHOR INFORMATION --------- %%
+\author{
+    First Author\thanks{\institution{Institution Name}.
+    Email: author@example.com | GitHub: \href{https://github.com/username}{@username}} \\
+    \small{Institution Name, Country}
+    \and
+    Second Author\thanks{\institution{Institution Name}.
+    Email: coauthor@example.com | GitHub: \href{https://github.com/coauthor}{@coauthor}} \\
+    \small{Institution Name, Country}
+}
+
+\date{}
+\maketitle
+\vspace{-0.5cm}
+
+%% --------- MAIN PAPER SECTIONS --------- %%
+\input{section/abstract}
+\input{section/introduction}
+\input{section/background}
+\input{section/methodology}
+\input{section/experimental_setup}
+\input{section/results}
+\input{section/conclusion}
+\newpage
+
+%% --------- BIBLIOGRAPHY --------- %%
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography}
+
+%% --------- APPENDICES --------- %%
+\newpage
+\appendix
+%Interesting successful and failed traces, with some light discussion on why.
+\input{appx/challenges}
+\input{appx/environment_details}
+\input{appx/success_rates}
+\input{appx/low_performing_models.tex}
+\input{appx/conversation_length}
+\input{appx/token_usage}
+\input{appx/cost_analysis.tex}
+\clearpage
+\input{appx/agent_traces}
+\clearpage
+\input{appx/run_harness}
+\input{appx/dataset}
+
+\end{document}
