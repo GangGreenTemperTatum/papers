@@ -12,7 +12,9 @@ dev = [
     "ipykernel>=6.29.5",
     "mypy>=1.15.0",
     "pre-commit>=4.0.0",
+    "pygments>=2.20.0",
     "ruff>=0.9.10",
+    "tornado>=6.5.7",
 ]
 
 [tool.setuptools]
