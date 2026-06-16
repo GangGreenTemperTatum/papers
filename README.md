@@ -9,10 +9,9 @@ layout.
 
 <img
   src="assets/papers-template.png"
-  alt="Logo"
+  alt="Papers Template"
   align="center"
-  width="144px"
-  height="144px"
+  width="720px"
 />
 
 </div>
@@ -62,7 +61,7 @@ pre-commit install
 
 ## Writing a paper
 
-1. Replace the title, author block, and metadata in `paper/main.tex`.
+1. Replace the title, author block, and document details in `paper/main.tex`.
 2. Add paper content under `paper/section/`.
 3. Add bibliography entries to `paper/bibliography.bib`.
 4. Add figures under `paper/figures/` if needed.

@@ -25,6 +25,7 @@ build/
 env/
 venv/
 ENV/
+uv.lock
 
 # Testing and coverage
 .coverage

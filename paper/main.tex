@@ -95,7 +95,7 @@
 \makeatother
 
 %% --------- TIKZ AND PGFPLOTS SETTINGS --------- %%
-\usetikzlibrary{fadings,patterns,shadows.blur,shapes,patterns.meta,shapes.arrows}
+\usetikzlibrary{fadings,patterns,shadows.blur,shapes,shapes.arrows}
 \usepgfplotslibrary{groupplots,dateplot}
 \pgfplotsset{compat=newest,
     width=0.9\textwidth,
@@ -156,7 +156,7 @@
 \definecolor{challengebubble}{RGB}{229,229,234} % iOS gray for challenge
 \definecolor{flagbubble}{RGB}{46,139,87} % Sea Green for flag found
 \definecolor{conversationframe}{RGB}{200,200,200} % Light gray for conversation frame
-\definecolor{metadatacolor}{RGB}{100,100,100} % Dark gray for metadata text
+\definecolor{detailcolor}{RGB}{100,100,100} % Dark gray for detail text
 
 %% --------- CONVERSATION ENVIRONMENTS --------- %%
 % Message group environment
@@ -181,7 +181,7 @@
   before skip=0pt,
   after skip=0pt
 ]
-\noindent\small\color{metadatacolor}%
+\noindent\small\color{detailcolor}%
 \textbf{#1} \quad
 \textit{Request #2 of #3} \quad
 \textit{Challenge: #4} \quad
@@ -210,7 +210,7 @@
   before skip=2pt,
   after skip=2pt
 ]
-\noindent\small\color{metadatacolor}%
+\noindent\small\color{detailcolor}%
 \textbf{#1} \quad
 \textit{Request #2 of #3} \quad
 \textit{Challenge: #4} \quad
